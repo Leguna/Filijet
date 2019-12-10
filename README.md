@@ -2,7 +2,7 @@
 
 Submission aplikasi di platform belajar Dicoding Academy.
 
-MIT License © 2019 Arksana.
+MIT License © 2019 Leguna.
 
 ----
 ## Submission 1 - Komponen Arsitektur
