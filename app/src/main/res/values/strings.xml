@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Filijet</string>
+    <string name="judul_film">Girl Under the Ketapang Tree</string>
+    <string name="deskripsi">"This film is adapted from a novel by Leguna. With a love for peace, the film Agung the main character is struggling to solve problems that are not normal. Together with a bully girl who had not been known for a long time, Agung found victory, and revealed a bloody mystery at his school.\n"</string>
+    <string name="tanggal">July 1, 2000</string>
+    <string name="featured_crew">Ahmad Tuflihun, Director and Story</string>
+
+    <string name="nickname">Leguna</string>
+    <string name="myname">Ahmad Tuflihun</string>
+    <string name="aboutme">About Me</string>
+    <string name="callme">Call Me</string>
+    <string name="nama">Name</string>
+    <string name="isi_cerita">Ever since I was little, I just kept staring at the monitor. Playing games has also become a hobby. However, this hobby did not last long, in the end I decided to make a game.\n\nIt was at this time that I began to learn the basics of programming. Because of 4 years of experience in making games, lectures feel more comfortable to run.\n\nMaking games and programs has their difficulties, especially with so few team members. Lack of experience is always one of the challenges when starting a project.\n\nResolving many problems and difficulties is one of the tasks of the programmer. To achieve my dreams, I will continue to fight in the field of application programming and games. I hope all who read this have the same or more determination than me.\n\nThank you.\n</string>
+
+    <string name="ceritaku">My Story</string>
+    <string name="lahir">Pontianak, 1 July 2000</string>
+    <string name="tempat_tanggal_lahir">Place/Date of Birth</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="username">Username</string>
+    <string name="facebook">Facebook</string>
+
+    <string name="keluar">Exit</string>
+    <string name="tampak_daftar">View</string>
+    <string name="grid_view">Grid</string>
+    <string name="card_view">Card</string>
+    <string name="list_view">List</string>
+    <string name="detail">Detail</string>
+    <string name="text_title">Title</string>
+    <string name="text_overview">Overview</string>
+    <string name="text_featuredcrew">Featured Crew</string>
+    <string name="text_tanggal">Date</string>
+    <string name="title_movies">Movies</string>
+    <string name="title_tvshows">TV Shows</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="dialogexit">Are you Sure?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+
+    <string name="language">Language</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+    <string name="moviedb">MOVIEDB</string>
+    <string name="rating">80%</string>
+    <string name="todo">TODO</string>
+    <string name="refresh">Refresh</string>
+    <string name="check_your_internet">Please check your internet connection</string>
+    <string name="favorite">Favorite</string>
+    <string name="no_data">List Empty</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="reminder_showing_the_movie_that_released_today">Reminder showing the movie that released today</string>
+    <string name="reminder_for_return_to_app">Reminder for return to app</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="desc_language">Change your device language</string>
+    <string name="no_data_tvs">TVShow List Empty</string>
+    <string name="no_data_movie">Movie List Empty</string>
+    <string name="as">" as "</string>
+    <string name="this_film_release_today_title">" has been release today!"</string>
+    <string name="open_back">ARKSANA miss you. Check Fili today.</string>
+    <string name="open_back_title">Arksana-chan really miss you!</string>
+    <string name="movie_release_notif">Movies Release Notification</string>
+
+    <string-array name="data_rating">
+        <item>100</item>
+        <item>65</item>
+        <item>63</item>
+        <item>66</item>
+        <item>60</item>
+        <item>65</item>
+        <item>58</item>
+        <item>84</item>
+        <item>60</item>
+        <item>66</item>
+        <item>66</item>
+    </string-array>
+    <string-array name="data_overview">
+        <item>Film ini diadaptasi dari novel karya Leguna. Dengan rasa cintanya akan kedamaian, Agung tokoh utama film ini berjuang menyelesaikan masalah-masalah tidak normal. Bersama gadis pengganggu yang tidak lama ia kenal, Agung menemukan pelaku pembunuhan, dan mengungkap misteri penuh darah di sekolahnya.\n</item>
+        <item>In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.\n</item>
+        <item>Captain Glass of the USS Arkansas discovers that a coup d\'état is taking place in Russia, so he and his crew join an elite group working on the ground to prevent a war.\n</item>
+        <item>In Depression-era London, a now-grown Jane and Michael Banks, along with Michael\'s three children, are visited by the enigmatic Mary Poppins following a personal loss. Through her unique magical skills, and with the aid of her friend Jack, she helps the family rediscover the joy and wonder missing in their lives.\n</item>
+        <item>Many thousands of years in the future, Earth’s cities roam the globe on huge wheels, devouring each other in a struggle for ever diminishing resources. On one of these massive traction cities, the old London, Tom Natsworthy has an unexpected encounter with a mysterious young woman from the wastelands who will change the course of his life forever.\n</item>
+        <item>After three years, the business of Muslihat (Epi Kusnandar), who has retired as a thug, has a problem. Sales decline. Muslihat also faces new problems when Safira (Safira Maharani), her only daughter, grows up in adolescence and begins to be visited by boys. A bigger problem: frictions between his former subordinates.\n</item>
+        <item>A war-hardened Crusader and his Moorish commander mount an audacious revolt against the corrupt English crown.\n</item>
+        <item>Miles Morales is juggling his life between being a high school student and being a spider-man. When Wilson "Kingpin" Fisk uses a super collider, others from across the Spider-Verse are transported to this dimension.\n</item>
+        <item>In Stockholm, Sweden, hacker Lisbeth Salander is hired by Frans Balder, a computer engineer, to retrieve a program that he believes it is too dangerous to exist.\n</item>
+        <item>Earl Stone, a man in his 80s, is broke, alone, and facing foreclosure of his business when he is offered a job that simply requires him to drive. Easy enough, but, unbeknownst to Earl, he’s just signed on as a drug courier for a Mexican cartel. He does so well that his cargo increases exponentially, and Earl hit the radar of hard-charging DEA agent Colin Bates.\n</item>
+        <item>Investigative journalist Eddie Brock attempts a comeback following a scandal, but accidentally becomes the host of Venom, a violent, super powerful alien symbiote. Soon, he must rely on his newfound powers to protect the world from a shadowy organization looking for a symbiote of their own.\n</item>
+    </string-array>
+    <string-array name="data_tokohpenting">
+        <item>Leguna, Storyboard and Film Director</item>
+        <item>M. Night Shyamalan, Director</item>
+        <item>Donovan Marsh, Director</item>
+        <item>Rob Marshall, Director</item>
+        <item>Christian Rivers, Director</item>
+        <item>Aris Nugraha, Director</item>
+        <item>Ben Chandler, Screenplay and Story</item>
+        <item>Rodney Rothman, Director and Screenplay</item>
+        <item>Fede Alvarez, Director and Screenplay</item>
+        <item>Clint Eastwood, Director</item>
+        <item>Mike Zeck, Characters</item>
+    </string-array>
+
+    <string-array name="data_tanggal">
+        <item>July 01, 2000</item>
+        <item>January 16, 2019</item>
+        <item>October 19, 2018</item>
+        <item>December 13, 2018</item>
+        <item>November 27, 2018</item>
+        <item>January 17, 2019</item>
+        <item>November 21, 2018</item>
+        <item>December 6, 2018</item>
+        <item>October 25, 2018</item>
+        <item>December 14, 2018</item>
+        <item>September 28, 2018</item>
+    </string-array>
+    <string-array name="data_name">
+        <item>Gadis Bawah Pohon Ketapang</item>
+        <item>Glass</item>
+        <item>Hunter Killer</item>
+        <item>Mary Poppins Returns</item>
+        <item>Mortal Engines</item>
+        <item>Retired Thug</item>
+        <item>Robin Hood</item>
+        <item>Spider-Man: Into the Spider-Verse</item>
+        <item>The Girl in the Spider\'s Web</item>
+        <item>The Mule</item>
+        <item>Venom</item>
+    </string-array>
+    <array name="data_photo">
+        <item>@drawable/poster_gadispohonketapang</item>
+        <item>@drawable/poster_glass</item>
+        <item>@drawable/poster_hunterkiller</item>
+        <item>@drawable/poster_marrypopins</item>
+        <item>@drawable/poster_mortalengine</item>
+        <item>@drawable/poster_preman</item>
+        <item>@drawable/poster_robinhood</item>
+        <item>@drawable/poster_spiderman</item>
+        <item>@drawable/poster_thegirl</item>
+        <item>@drawable/poster_themule</item>
+        <item>@drawable/poster_venom</item>
+    </array>
+</resources>
