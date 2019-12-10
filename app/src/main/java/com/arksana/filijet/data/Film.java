@@ -31,10 +31,6 @@ public class Film implements Parcelable {
     private String overview;
     @ColumnInfo(name = "photo")
     private String photo;
-    @ColumnInfo(name = "crew")
-    private String crew;
-    @ColumnInfo(name = "crewjobs")
-    private String crewJobs;
     @ColumnInfo(name = "tanggal-rilis")
     private String tanggal;
     @ColumnInfo(name = "url")
@@ -103,22 +99,6 @@ public class Film implements Parcelable {
         this.jenis = jenis;
     }
 
-    public String getCrewJobs() {
-        return crewJobs;
-    }
-
-    void setCrewJobs(String crewJobs) {
-        this.crewJobs = crewJobs;
-    }
-
-    public String getCrew() {
-        return crew;
-    }
-
-    void setCrew(String crew) {
-        this.crew = crew;
-    }
-
     public int getId() {
         return id;
     }
@@ -170,8 +150,6 @@ public class Film implements Parcelable {
         dest.writeString(this.rating);
         dest.writeString(this.judul);
         dest.writeString(this.overview);
-        dest.writeString(this.crew);
-        dest.writeString(this.crewJobs);
         dest.writeString(this.tanggal);
         dest.writeString(this.url);
         dest.writeInt(this.id);
@@ -187,8 +165,6 @@ public class Film implements Parcelable {
         this.rating = in.readString();
         this.judul = in.readString();
         this.overview = in.readString();
-        this.crew = in.readString();
-        this.crewJobs = in.readString();
         this.tanggal = in.readString();
         this.url = in.readString();
         this.id = in.readInt();

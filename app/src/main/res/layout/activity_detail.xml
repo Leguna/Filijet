@@ -27,18 +27,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/tv_tokoh"
-            style="@style/TextTebal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/featured_crew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
         <Button
             android:id="@+id/btn_link"
             android:layout_width="match_parent"
@@ -89,12 +77,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/text_tanggal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_tokoh" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_next" />
 
         <TextView
             android:id="@+id/tv_judul"
@@ -134,19 +122,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_tanggal" />
-
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/TextBiasa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/text_featuredcrew"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_prev" />
 
         <me.biubiubiu.justifytext.library.JustifyTextView
             android:id="@+id/tv_overview"
@@ -198,16 +173,15 @@
             android:progressDrawable="@drawable/cpb_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_overview"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview" />
 
         <View
             android:id="@+id/progressBarBG"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#C6000000"
+            android:background="#000000"
             android:elevation="5dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -221,7 +195,8 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:elevation="6dp"
-            android:visibility="visible"
+            android:visibility="gone"
+
             app:layout_constraintBottom_toBottomOf="@+id/pb_rating"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

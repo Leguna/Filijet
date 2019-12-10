@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.arksana.filijet.anim.ProgressBarAnimation;
+import com.arksana.filijet.data.Film;
 import com.arksana.filijet.main.DetailViewModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -26,13 +27,14 @@ public class DetailActivity extends AppCompatActivity {
     public static String EXTRA_ID = "id";
 
     private DetailViewModel viewModel;
+    private Film film;
 
-    TextView judul, tanggal, overview, tokoh, rating;
-    ProgressBar progressBar;
-    View bgProgress;
-    ProgressBar pbrating;
-    ImageView photo;
-    Button btnPrev, btnNext, moviedb;
+    private TextView judul, tanggal, overview, rating;
+    private ProgressBar progressBar;
+    private View bgProgress;
+    private ProgressBar pbrating;
+    private ImageView photo;
+    private Button btnPrev, btnNext, moviedb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,45 +43,38 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         prepareUI();
+        showLoading(true);
+
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         if (savedInstanceState == null) {
-            viewModel.films = getIntent().getParcelableArrayListExtra(EXTRA_FILMS);
             viewModel.selectedId = getIntent().getIntExtra(EXTRA_ID, 0);
+            viewModel.films = getIntent().getParcelableArrayListExtra(EXTRA_FILMS);
+            viewModel.setFilm();
         }
-
-        setUI();
-
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.prev();
-                setUI();
-            }
+        viewModel.getFilm().observe(this, this::setUI);
+        btnPrev.setOnClickListener(view -> {
+            showLoading(true);
+            viewModel.prev();
         });
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.next();
-                setUI();
-            }
+        btnNext.setOnClickListener(view -> {
+            showLoading(true);
+            viewModel.next();
         });
-        moviedb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String url = viewModel.getFilm().getUrl();
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-            }
+        moviedb.setOnClickListener(view -> {
+            String url = film.getUrl();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         });
 
     }
 
-    private void showLoading(boolean kondisi) {
-        btnNext.setEnabled(!kondisi);
-        btnPrev.setEnabled(!kondisi);
-        if (kondisi) {
+    private void showLoading(boolean state) {
+        btnNext.setEnabled(!state);
+        btnPrev.setEnabled(!state);
+        moviedb.setEnabled(!state);
+        if (state) {
             progressBar.setVisibility(View.VISIBLE);
             bgProgress.setVisibility(View.VISIBLE);
         } else {
@@ -96,7 +91,6 @@ public class DetailActivity extends AppCompatActivity {
         tanggal = findViewById(R.id.tv_tanggal);
 
         overview = findViewById(R.id.tv_overview);
-        tokoh = findViewById(R.id.tv_tokoh);
         rating = findViewById(R.id.tv_rating);
 
         pbrating = findViewById(R.id.pb_rating);
@@ -105,27 +99,24 @@ public class DetailActivity extends AppCompatActivity {
         btnPrev = findViewById(R.id.btn_prev);
         btnNext = findViewById(R.id.btn_next);
         moviedb = findViewById(R.id.btn_link);
-        showLoading(false);
     }
 
-    private void setUI() {
-        setTitle(viewModel.getFilm().getJudul());
-        judul.setText(viewModel.getFilm().getJudul());
+    private void setUI(Film film) {
+        this.film = film;
+        setTitle(film.getJudul());
+        judul.setText(film.getJudul());
         Glide.with(this)
-                .load(viewModel.getFilm().getPhoto())
+                .load(film.getPhoto())
                 .apply(new RequestOptions().override(200, 300))
                 .into(photo);
-        overview.setText(viewModel.getFilm().getOverview());
-        String teksCrew;
-        if (viewModel.getFilm().getCrew() == null) teksCrew = "-";
-        else teksCrew = viewModel.getFilm().getCrew();
-        tokoh.setText(teksCrew);
-        tanggal.setText(viewModel.getFilm().getTanggal());
-        rating.setText(String.format("%s%%", viewModel.getFilm().getRating()));
-        pbrating.setProgress(Integer.parseInt(viewModel.getFilm().getRating()));
-        ProgressBarAnimation anim = new ProgressBarAnimation(pbrating, 0, Integer.parseInt(viewModel.getFilm().getRating()));
+        overview.setText(film.getOverview());
+        tanggal.setText(film.getTanggal());
+        rating.setText(String.format("%s%%", film.getRating()));
+        pbrating.setProgress(Integer.parseInt(film.getRating()));
+        ProgressBarAnimation anim = new ProgressBarAnimation(pbrating, 0, Integer.parseInt(film.getRating()));
         anim.setDuration(1000);
         pbrating.startAnimation(anim);
+        showLoading(false);
     }
 
     @Override

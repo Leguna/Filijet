@@ -1,27 +1,47 @@
 package com.arksana.filijet.main;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.arksana.filijet.data.Film;
+import com.arksana.filijet.data.DataRepository;
 
 import java.util.ArrayList;
 
-public class DetailViewModel extends ViewModel {
+public class DetailViewModel extends AndroidViewModel {
 
     public int selectedId;
     public ArrayList<Film> films;
+    public Film film;
 
-    public Film getFilm() {
-        return films.get(selectedId);
+    private DataRepository dataRepository;
+
+    public DetailViewModel(@NonNull Application application) {
+        super(application);
+        dataRepository = new DataRepository(application);
     }
 
-    public int prev() {
-        if (selectedId <= 0) return selectedId = films.size() - 1;
-        else return --selectedId;
+    public void setFilm() {
+        dataRepository.getFilmDetail(films, selectedId);
     }
 
-    public int next() {
-        if (selectedId >= films.size() - 1) return selectedId = 0;
-        else return ++selectedId;
+    public LiveData<Film> getFilm(){
+        return dataRepository.getFilm();
     }
+
+    public void next() {
+        if (selectedId >= films.size() - 1)  selectedId = 0;
+        else  ++selectedId;
+        setFilm();
+    }
+
+    public void prev() {
+        if (selectedId <= 0)  selectedId = films.size() - 1;
+        else  --selectedId;
+        setFilm();
+    }
+
 }

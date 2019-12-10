@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
-        <item android:title="@string/tampak_daftar">
+        <item android:title="@string/tampak_daftar"
+            android:id="@+id/action_view">
             <menu>
                 <item
                     android:id="@+id/action_list"

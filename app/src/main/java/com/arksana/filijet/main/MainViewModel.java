@@ -1,17 +1,30 @@
 package com.arksana.filijet.main;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.arksana.filijet.data.Film;
-import com.arksana.filijet.data.FilmData;
+import com.arksana.filijet.data.DataRepository;
 
 import java.util.ArrayList;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
 
-    public ArrayList<Film> films = new ArrayList<>();
+    public DataRepository dataRepository;
 
-    public ArrayList<Film> getFilms(int jenis) {
-        return films = FilmData.getListData(jenis);
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        dataRepository = new DataRepository(application);
+    }
+
+    public void setData(int type) {
+        dataRepository.getAllFilms(type);
+    }
+
+    public LiveData<ArrayList<Film>> getFilms() {
+        return dataRepository.getFilms();
     }
 }

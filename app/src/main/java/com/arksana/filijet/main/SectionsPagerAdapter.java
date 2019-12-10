@@ -15,43 +15,43 @@ import com.arksana.filijet.R;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.title_movies, R.string.title_tvshows};
-    private final Context mContext;
+  @StringRes
+  private static final int[] TAB_TITLES = new int[]{R.string.title_movies, R.string.title_tvshows};
+  private final Context mContext;
+  private Fragment mCurrentFragment;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
-        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mContext = context;
-    }
+  public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+    mContext = context;
+  }
 
-    private Fragment mCurrentFragment;
+  private Fragment getCurrentFragment() {
+    return mCurrentFragment;
+  }
 
-    private Fragment getCurrentFragment() {
-        return mCurrentFragment;
+  @Override
+  public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+    if (getCurrentFragment() != object) {
+      mCurrentFragment = ((Fragment) object);
     }
-    @Override
-    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        if (getCurrentFragment() != object) {
-            mCurrentFragment = ((Fragment) object);
-        }
-        super.setPrimaryItem(container, position, object);
-    }
+    super.setPrimaryItem(container, position, object);
+  }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return MainFragment.newInstance(position+1);
-    }
+  @NonNull
+  @Override
+  public Fragment getItem(int position) {
+    return MainFragment.newInstance(position + 1);
+  }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
-    }
+  @Nullable
+  @Override
+  public CharSequence getPageTitle(int position) {
+    return mContext.getResources().getString(TAB_TITLES[position]);
+  }
 
-    @Override
-    public int getCount() {
-        return TAB_TITLES.length;
-    }
+  @Override
+  public int getCount() {
+    return TAB_TITLES.length;
+  }
 
 }
