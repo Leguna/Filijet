@@ -18,11 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     public static int mode = R.id.action_card;
-
-    public MainFragment moviesFragment;
-    public MainFragment tvshowFragment;
-    public MainFragment favoriteFragment;
-
+    public MainFragment[] fragments = new MainFragment[2];
     public Toolbar toolbar;
 
     @Override
@@ -71,14 +67,13 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        setMode(item.getItemId(), moviesFragment);
-        setMode(item.getItemId(), tvshowFragment);
+
+        for (MainFragment fragment : fragments)setMode(item.getItemId(), fragment);
         if (item.getItemId() == R.id.action_tentangku) {
             Intent moveIntent = new Intent(getApplicationContext(), AboutMe.class);
             startActivity(moveIntent);
         } else if (item.getItemId() == R.id.action_refresh) {
-            moviesFragment.refreshData();
-            tvshowFragment.refreshData();
+            for (MainFragment fragment : fragments) fragment.refreshData();
         } else if (item.getItemId() == R.id.action_keluar) {
             onBackPressed();
         }

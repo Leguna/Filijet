@@ -221,7 +221,6 @@ public class FilmData implements Parcelable {
             film.setPhoto(aData[5]);
             film.setRating(aData[3]);
             film.setTanggal(aData[1]);
-            film.setCrew(aData[0]);
             film.setUrl(aData[6]);
             films.add(film);
         }
