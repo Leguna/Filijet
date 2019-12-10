@@ -19,7 +19,7 @@ Menggunakan pagedlist untuk data favorit.
 ---
 
 Gunakan source code ini hanya sebagai referensi.\
-Jangan Plagiat, kalau dibanned... sedih bagiku dan rugi dirimu.:disappointed_relieved:\
+Jangan Plagiat, kalau dibanned... sedih bagiku dan rugi dirimu.:disappointed_relieved:
 
 ![Gambar](https://www.dicoding.com/blog/wp-content/uploads/2018/10/MEME-pak-polisi.jpg)
 ---
