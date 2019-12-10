@@ -1,15 +1,10 @@
 package com.arksana.filijet.data;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 
-public class FilmData implements Parcelable {
+public class FilmData {
 
     private static ArrayList<Film> films = new ArrayList<>();
-
-
     private static String[][] data;
     private static String[][] data2;
 
@@ -226,30 +221,5 @@ public class FilmData implements Parcelable {
         }
         return films;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
-
-
-    protected FilmData(Parcel in) {
-    }
-
-    public static final Creator<FilmData> CREATOR = new Creator<FilmData>() {
-        @Override
-        public FilmData createFromParcel(Parcel in) {
-            return new FilmData(in);
-        }
-
-        @Override
-        public FilmData[] newArray(int size) {
-            return new FilmData[size];
-        }
-    };
 
 }

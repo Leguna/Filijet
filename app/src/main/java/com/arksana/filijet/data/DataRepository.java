@@ -4,30 +4,36 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.DataSource;
+import androidx.room.Room;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.arksana.filijet.BuildConfig;
-import com.arksana.filijet.EspressoIdlingResource;
+import com.arksana.filijet.utils.EspressoIdlingResource;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 
 public class DataRepository {
+    public MutableLiveData<ArrayList<Film>> films = new MutableLiveData<>();
+    public MutableLiveData<Film> film = new MutableLiveData<>();
+    public FilmDAO filmDAO;
     private String API_KEY = BuildConfig.TMDB_API_KEY;
-
     private RequestQueue queue;
     private ArrayList<Film> listItems = new ArrayList<>();
     private Application application;
 
-    public MutableLiveData<ArrayList<Film>> films = new MutableLiveData<>();
-    public MutableLiveData<Film> film = new MutableLiveData<>();
-
     public DataRepository(Application application) {
         this.application = application;
+        AppDatabase database = Room.databaseBuilder(application, AppDatabase.class, AppDatabase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build();
+        filmDAO = database.getFilmDAO();
+
     }
 
     public LiveData<Film> getFilm() {
@@ -38,20 +44,43 @@ public class DataRepository {
         return films;
     }
 
-    public void setFilms(ArrayList<Film> newFilms) {
-        films.setValue(newFilms);
+
+    public void getAllFilms(final int type, int page) {
+        queue = Volley.newRequestQueue(application);
+        if (type != 3) {
+            final String url = BuildConfig.BASE_URL + "discover/" + ((type == 1) ? "movie" : "tv") + "?api_key=" + API_KEY + "&page=" + page;
+            System.out.println(url);
+            EspressoIdlingResource.increment();
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, null, response -> {
+                        try {
+                            JSONArray list = response.getJSONArray("results");
+                            for (int i = 0; i < list.length(); i++) {
+                                if (!list.getJSONObject(i).getString("poster_path").contains("null")) {
+                                    Film newFilm = new Film().setFilmDetailFromJSON(list.getJSONObject(i), type);
+                                    listItems.add(newFilm);
+                                }
+                            }
+                            films.postValue(listItems);
+                            EspressoIdlingResource.decrement();
+                        } catch (Exception ignored) {
+                        }
+                    }, System.out::println);
+
+            queue.add(jsonObjectRequest);
+        } else {
+            listItems = new ArrayList<>(filmDAO.getFilms());
+            films.postValue(listItems);
+        }
     }
 
     public void getFilmDetail(final ArrayList<Film> newFilms, int pos) {
         queue = Volley.newRequestQueue(application);
-        setFilms(newFilms);
         final Film newFilm = newFilms.get(pos);
         listItems = new ArrayList<>();
-        film.setValue(newFilm);
-        int jenis = newFilm.getJenis();
+        int type = newFilm.getJenis();
         final String url = BuildConfig.BASE_URL +
-                (jenis == 1 ? "movie/" : "tv/") + newFilm.getId() + "?api_key=" + API_KEY;
-        System.out.println(url);
+                (type == 1 ? "movie/" : "tv/") + newFilm.getId() + "?api_key=" + API_KEY;
         EspressoIdlingResource.increment();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, response -> {
@@ -66,35 +95,9 @@ public class DataRepository {
         queue.add(jsonObjectRequest);
     }
 
-    public MutableLiveData<ArrayList<Film>> getAllFilms(final int type) {
-        queue = Volley.newRequestQueue(application);
-        listItems = new ArrayList<>();
 
-        final String url = BuildConfig.BASE_URL + "discover/" + ((type == 1) ? "movie" : "tv") + "?api_key=" + API_KEY;
-
-        System.out.println(url);
-        EspressoIdlingResource.increment();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, response -> {
-                    try {
-                        JSONArray list = response.getJSONArray("results");
-                        for (int i = 0; i < list.length(); i++) {
-                            Film newFilm = new Film().setFilmDetailFromJSON(list.getJSONObject(i), type);
-                            if (!newFilm.getPhoto().contains("null"))
-                                listItems.add(newFilm);
-                        }
-                        films.postValue(listItems);
-                        EspressoIdlingResource.decrement();
-                    } catch (Exception ignored) {
-                    }
-                }, error -> films.postValue(FilmData.getListData(type)));
-
-        queue.add(jsonObjectRequest);
-        return films;
-    }
-
-    public void getAllFilmsOffline(final int type) {
-        films.setValue(FilmData.getListData(type));
+    public DataSource.Factory<Integer, Film> getAllFavorite() {
+        return filmDAO.getFilmsPaged();
     }
 
 }

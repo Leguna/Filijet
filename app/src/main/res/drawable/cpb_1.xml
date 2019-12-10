@@ -4,27 +4,28 @@
         <shape
             android:shape="ring"
             android:useLevel="false">
-            <solid android:color="@android:color/darker_gray"/>
+            <solid android:color="@android:color/darker_gray" />
         </shape>
     </item>
 
     <item android:id="@android:id/progress">
-        <rotate android:fromDegrees="270"
+        <rotate
+            android:fromDegrees="270"
             android:toDegrees="271">
             <shape
                 android:shape="ring"
                 android:useLevel="true">
-                <solid android:color="@color/colorPrimary"/>
+                <solid android:color="@color/colorPrimary" />
             </shape>
         </rotate>
         <!--<rotate android:fromDegrees="270"-->
-            <!--android:pivotX="50%"-->
-            <!--android:pivotY="50%"-->
-            <!--android:toDegrees="270">-->
-            <!--<shape android:shape="ring"-->
-                <!--android:useLevel="true">-->
-                <!--<solid android:color="@color/colorPrimaryDark"/>-->
-            <!--</shape>-->
+        <!--android:pivotX="50%"-->
+        <!--android:pivotY="50%"-->
+        <!--android:toDegrees="270">-->
+        <!--<shape android:shape="ring"-->
+        <!--android:useLevel="true">-->
+        <!--<solid android:color="@color/colorPrimaryDark"/>-->
+        <!--</shape>-->
         <!--</rotate>-->
     </item>
 </layer-list>

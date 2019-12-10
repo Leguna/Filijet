@@ -17,7 +17,7 @@ public class DetailViewModel extends AndroidViewModel {
     public ArrayList<Film> films;
     public Film film;
 
-    private DataRepository dataRepository;
+    public DataRepository dataRepository;
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
@@ -28,19 +28,19 @@ public class DetailViewModel extends AndroidViewModel {
         dataRepository.getFilmDetail(films, selectedId);
     }
 
-    public LiveData<Film> getFilm(){
+    public LiveData<Film> getFilm() {
         return dataRepository.getFilm();
     }
 
     public void next() {
-        if (selectedId >= films.size() - 1)  selectedId = 0;
-        else  ++selectedId;
+        if (selectedId >= films.size() - 1) selectedId = 0;
+        else ++selectedId;
         setFilm();
     }
 
     public void prev() {
-        if (selectedId <= 0)  selectedId = films.size() - 1;
-        else  --selectedId;
+        if (selectedId <= 0) selectedId = films.size() - 1;
+        else --selectedId;
         setFilm();
     }
 

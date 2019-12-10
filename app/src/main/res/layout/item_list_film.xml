@@ -11,12 +11,12 @@
         android:id="@+id/photo"
         android:layout_width="70dp"
         android:layout_height="105dp"
+        android:contentDescription="@string/todo"
         android:scaleType="fitStart"
         android:src="@drawable/poster_gadispohonketapang"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_overview"

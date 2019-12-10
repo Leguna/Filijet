@@ -3,6 +3,7 @@ package com.arksana.filijet;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -36,39 +37,8 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView photo;
     private Button btnPrev, btnNext, moviedb;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        prepareUI();
-        showLoading(true);
-
-
-        viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
-        if (savedInstanceState == null) {
-            viewModel.selectedId = getIntent().getIntExtra(EXTRA_ID, 0);
-            viewModel.films = getIntent().getParcelableArrayListExtra(EXTRA_FILMS);
-            viewModel.setFilm();
-        }
-        viewModel.getFilm().observe(this, this::setUI);
-        btnPrev.setOnClickListener(view -> {
-            showLoading(true);
-            viewModel.prev();
-        });
-        btnNext.setOnClickListener(view -> {
-            showLoading(true);
-            viewModel.next();
-        });
-        moviedb.setOnClickListener(view -> {
-            String url = film.getUrl();
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-        });
-
-    }
+    private Menu menu;
+    private boolean heartCondition;
 
     private void showLoading(boolean state) {
         btnNext.setEnabled(!state);
@@ -101,8 +71,45 @@ public class DetailActivity extends AppCompatActivity {
         moviedb = findViewById(R.id.btn_link);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        prepareUI();
+        showLoading(true);
+
+
+        viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+        viewModel.getFilm().observe(this, this::setUI);
+        if (savedInstanceState == null) {
+            viewModel.selectedId = getIntent().getIntExtra(EXTRA_ID, 0);
+            viewModel.films = getIntent().getParcelableArrayListExtra(EXTRA_FILMS);
+            viewModel.setFilm();
+        }
+        btnPrev.setOnClickListener(view -> {
+            showLoading(true);
+            viewModel.prev();
+//            heartCheck();
+        });
+        btnNext.setOnClickListener(view -> {
+            showLoading(true);
+            viewModel.next();
+//            heartCheck();
+        });
+        moviedb.setOnClickListener(view -> {
+            String url = film.getUrl();
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        });
+
+    }
+
     private void setUI(Film film) {
         this.film = film;
+        heartCheck();
         setTitle(film.getJudul());
         judul.setText(film.getJudul());
         Glide.with(this)
@@ -120,12 +127,40 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.fav, menu);
+        this.menu = menu;
+//        heartCheck();
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+            return true;
+        } else if (item.getItemId() == R.id.action_favorite) {
+            changeLoveColor(item);
             return true;
         }
         return false;
     }
 
+    private void changeLoveColor(MenuItem item) {
+        heartCondition = !heartCondition;
+        if (heartCondition) {
+            item.setIcon(R.drawable.ic_favorite);
+            viewModel.dataRepository.filmDAO.insert(film);
+        } else {
+            item.setIcon(R.drawable.ic_favorite_border);
+            viewModel.dataRepository.filmDAO.delete(film);
+        }
+    }
+
+    private void heartCheck() {
+        MenuItem menuItem = menu.findItem(R.id.action_favorite);
+        heartCondition = viewModel.dataRepository.filmDAO.getFilmWithID(film.getId()) != null;
+        int icon = (heartCondition) ? R.drawable.ic_favorite : R.drawable.ic_favorite_border;
+        menuItem.setIcon(icon);
+    }
 }

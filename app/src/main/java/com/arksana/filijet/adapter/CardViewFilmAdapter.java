@@ -21,26 +21,38 @@ import java.util.ArrayList;
 
 public class CardViewFilmAdapter extends RecyclerView.Adapter<CardViewFilmAdapter.CardViewViewHolder> {
 
-    private ArrayList<Film> listFilm;
 
-    public CardViewFilmAdapter(ArrayList<Film> list) {
-        this.listFilm = list;
+    public ArrayList<Film> getListFilm() {
+        return listFilm;
     }
+
+    public void setListFilm(ArrayList<Film> listFilm) {
+        this.listFilm = listFilm;
+        notifyDataSetChanged();
+    }
+
+    private ArrayList<Film> listFilm;
+    private OnBottomReachedListener onBottomReachedListener;
+    private CardViewFilmAdapter.OnItemClickCallback onItemClickCallback;
 
     @NonNull
     @Override
     public CardViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview_film, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.item_cardview_film, parent, false);
         return new CardViewViewHolder(view);
     }
 
     @Override
+    public int getItemCount() {
+        return listFilm.size();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull final CardViewViewHolder holder, int position) {
-        if (position == listFilm.size() / 2 /* calculate middle element position */) {
-            holder.setIsInTheMiddle(true);
-        } else {
-            holder.setIsInTheMiddle(false);
-        }
+        if (position == listFilm.size() - 2)
+            onBottomReachedListener.onBottomReached(position);
+
         Film film = listFilm.get(position);
         Glide.with(holder.itemView.getContext())
                 .load(film.getPhoto())
@@ -50,24 +62,30 @@ public class CardViewFilmAdapter extends RecyclerView.Adapter<CardViewFilmAdapte
         holder.tvTanggal.setText(film.getTanggal());
         holder.tvOverview.setText(film.getOverview());
         holder.tvRating.setText(film.getRating());
-        if(film.getRating()==null) film.setRating("0");
+        if (film.getRating() == null) film.setRating("0");
         holder.pbRating.setProgress(Integer.parseInt(film.getRating()));
         ProgressBarAnimation anim = new ProgressBarAnimation(holder.pbRating, 0, Integer.parseInt(film.getRating()));
         anim.setDuration(1000);
         holder.pbRating.startAnimation(anim);
-
-        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickCallback.onItemClicked(holder.getAdapterPosition());
-            }
-        });
+        holder.btnDetail.setOnClickListener(v -> onItemClickCallback.onItemClicked(holder.getAdapterPosition()));
     }
 
-    @Override
-    public int getItemCount() {
-        return listFilm.size();
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
+        this.onBottomReachedListener = onBottomReachedListener;
     }
+
+    public interface OnBottomReachedListener {
+        void onBottomReached(int position);
+    }
+
+    public void setOnItemClickCallback(CardViewFilmAdapter.OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(int postition);
+    }
+
 
     class CardViewViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPhoto;
@@ -75,8 +93,6 @@ public class CardViewFilmAdapter extends RecyclerView.Adapter<CardViewFilmAdapte
         Button btnDetail;
         ProgressBar pbRating;
 
-        // We'll use this field to showcase matching the holder from the test.
-        private boolean mIsInTheMiddle = false;
 
         CardViewViewHolder(View itemView) {
             super(itemView);
@@ -89,22 +105,6 @@ public class CardViewFilmAdapter extends RecyclerView.Adapter<CardViewFilmAdapte
             pbRating = itemView.findViewById(R.id.pb_rating);
         }
 
-        boolean getIsInTheMiddle() {
-            return mIsInTheMiddle;
-        }
-
-        void setIsInTheMiddle(boolean isInTheMiddle) {
-            mIsInTheMiddle = isInTheMiddle;
-        }
     }
 
-    private CardViewFilmAdapter.OnItemClickCallback onItemClickCallback;
-
-    public void setOnItemClickCallback(CardViewFilmAdapter.OnItemClickCallback onItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback;
-    }
-
-    public interface OnItemClickCallback {
-        void onItemClicked(int postition);
-    }
 }
